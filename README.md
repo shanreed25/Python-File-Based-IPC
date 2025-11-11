@@ -1,6 +1,9 @@
 # Interprocess Communication (IPC) 
 **A lightweight IPC method suitable for simple CLI applications where sub-second latency is acceptable It uses file-based IPC (Inter-Process Communication) via a shared JSON file (interface_state.json)**
 
+## 📖 What is File-Based IPC?
+
+File-based IPC is a method where two or more processes communicate by reading and writing to a shared file. One process writes data to the file, and another process reads it to receive updates.
 
 ### How it works
 - **Shared State File:** Both processes read/write to `interface_state.json`
