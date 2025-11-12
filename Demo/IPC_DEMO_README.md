@@ -6,13 +6,30 @@
 - Python 3.6 or higher
 - only Python standard library
 
-## Files
-### 1. Shared Json File **`ipc_state.json`**
+## 🎯 Key Concepts Demonstrated
+- **Shared State** both processes access the same `ipc_state.json` file as their communication channel
+- **Polling** the reader checks the file every 0.5 seconds for updates (see `sleep(0.5)` in reader.py).
+- **JSON Serialization** data is stored in human-readable JSON format, making it easy to debug
+- **Atomic Updates** the writer reads the current state before updating to avoid overwriting data
+
+### How it works
+- **Shared State File:** `ipc_state.json`
 - processes communicate by reading and writing to this shared file
+- **Reader** `reader.py`:
+    - continuously reads the JSON file in a loop
+    - updates the display based on the file contents
+- **Writer** `writer.py`:
+    - writes updates to the JSON file when user issues commands
+    - the reader picks up the changes on the next read of the JSON file
+- [More About How The Code Works](../Notebooks/FileBasedIPCDemoCode.ipynb)
 
-### 2. Reader File: **`reader.py`** 
-- will continuously monitors `ipc_state.json`
-- will display the state of `ipc_state.json`
+## 📝 Usage Instructions
+### Step 1: Start the Reader
+- Open a terminal and run: `python reader.py`
+### Step 2: Start the Writer
+- Open a **second terminal** (keep the reader running) and run: `python writer.py`
+### Step 3: Send Messages
+- In the writer terminal
+### Step 4: Watch the Reader Update
 
-### 3. Writer File **`writer.py`**
-- will send messages and commands to update the shared state(`ipc_state.json`)
+![ipc demo image](ipc_demo_image.png)
