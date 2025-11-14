@@ -1,7 +1,9 @@
 {
-  "current_view": "reader",
-  "content": "Welcome to FILE-BASED IPC READER!",
-  "data": {
-    "message": "2"
+  "current_view": "SUMMARY",
+  "content": "Welcome To Your Budget Tracker!",
+  "accounts": {
+    "name": "Chase",
+    "type": "Checking",
+    "balance": 2500.0
   }
 }

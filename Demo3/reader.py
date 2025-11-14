@@ -10,7 +10,7 @@ from rich.console import Console
 from rich.layout import Layout
 from rich.live import Live
 
-from ui.layout import create_reader_layout, update_reader_body
+from ui.reader_layout import create_reader_layout, update_reader_body
 
 console = Console()
 SHARED_STATE_FILE = Path(__file__).parent / "ipc_state.json"
@@ -22,9 +22,9 @@ def initialize_state():
     return: dict - The initial state dictionary
     """
     initial_state = {
-        "current_view": "reader",
-        "content": "Welcome to FILE-BASED IPC READER!",
-        "data": {}
+        "current_view": "SUMMARY",
+        "content": "Welcome To Your Budget Tracker!",
+        "accounts": []
     }
     with open(SHARED_STATE_FILE, 'w') as f:
         json.dump(initial_state, f)
