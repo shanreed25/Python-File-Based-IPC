@@ -28,7 +28,7 @@ def read_shared_state():
             "message": "Hello from writer process!",
         }
     
-def update(new_message, layout):
+def update(new_message):
     """
     Update the shared state file with a new message
     param new_message: str - The new message to write to the shared state
@@ -41,16 +41,14 @@ def update(new_message, layout):
     with open(SHARED_STATE_FILE, "w") as file:
         json.dump(state, file, indent=2)
     
-    
-    updated_layout = update_writer_layout(layout, new_message)
-    console.print(updated_layout)
+    update_writer_layout(console, new_message)
 
 def main():
     """
     Main function to run the writer process
     """
 
-    layout = create_writer_layout(console)
+    create_writer_layout(console)
 
     while True:
         try:
@@ -58,7 +56,7 @@ def main():
             if not user_input:
                 continue
             else:
-                update(user_input, layout)
+                update(user_input)
 
         except KeyboardInterrupt:
             print("\n" + "="*50)
