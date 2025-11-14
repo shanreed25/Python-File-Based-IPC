@@ -68,7 +68,7 @@
 
 ## 🔗 Related Resources
 - [Inter-Process Communication Concepts](../Notebooks/InterprocessCommunication.ipynb)
-- [Code Walkthrough](../Notebooks/BasicFileBasedIPC.ipynb)
+- [Code Walkthrough](../Notebooks/FileBasedIPCBasicDemoCode.ipynb)
 
 
 **Note**: This demo is for educational purposes to understand IPC concepts. For production use, consider more robust IPC mechanisms like message queues, sockets, or dedicated IPC libraries.
