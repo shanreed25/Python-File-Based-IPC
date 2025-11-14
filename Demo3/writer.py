@@ -42,14 +42,28 @@ def update(new_message, layout):
         json.dump(state, file, indent=2)
     
     
-    updated_layout = update_writer_layout(layout, new_message)
-    console.print(updated_layout)
+    update_writer_layout(layout, new_message)
+
+def show_choice(choice):
+    if choice == "0":
+        console.print("\n[yellow]Exiting Command Client. Goodbye! 👋[/yellow]\n")
+        return 0
+    elif choice == "1":
+        console.print("\n[yellow]Switching View! 👋[/yellow]\n")
+    elif choice == "2":
+        console.print("\n[yellow]Updating Content! 👋[/yellow]\n")
+    elif choice == "3":
+        console.print("\n[yellow]Adding Transaction Data! 👋[/yellow]\n")
+    elif choice == "4":
+        console.print("\n[yellow]Clearing Data! 👋[/yellow]\n")
+    elif choice == "5":
+        console.print("\n[yellow]Showing Current State! 👋[/yellow]\n")
 
 def main():
     """
     Main function to run the writer process
     """
-
+    create_writer_layout(console)
         # Prompt the user to ensure the reader.py is running
     console.print("[cyan]Command Client Started![/cyan]")
     console.print("[yellow]Make sure interface_server.py is running in another terminal[/yellow]\n")
@@ -62,21 +76,11 @@ def main():
             "[green]Enter command[/green]",
             choices=["0", "1", "2", "3", "4", "5"]
         )
+        result = show_choice(choice)
 
-                
-        if choice == "0":
-            console.print("\n[yellow]Exiting Command Client. Goodbye! 👋[/yellow]\n")
+        if result == 0:
             break
-        elif choice == "1":
-            console.print("\n[yellow]Switching View! 👋[/yellow]\n")
-        elif choice == "2":
-            console.print("\n[yellow]Updating Content! 👋[/yellow]\n")
-        elif choice == "3":
-            console.print("\n[yellow]Adding Transaction Data! 👋[/yellow]\n")
-        elif choice == "4":
-            console.print("\n[yellow]Clearing Data! 👋[/yellow]\n")
-        elif choice == "5":
-            console.print("\n[yellow]Showing Current State! 👋[/yellow]\n")
+
         input("\nPress Enter to continue...")
      
 

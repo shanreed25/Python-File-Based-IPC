@@ -34,7 +34,7 @@ def create_footer(footer_text):
         style="dim cyan",
         justify="center"
     )
-    return Panel(footer_text, box=box.SIMPLE, border_style="dim")
+    return Panel(footer_text, box=box.SIMPLE)
 
 
 
@@ -101,47 +101,36 @@ def update_reader_body(content_text, layout):
 #=============================================
 # WRITER LAYOUT FUNCTIONS
 #=============================================
+#=============================================
+# WRITER LAYOUT FUNCTIONS
+#=============================================
 def create_writer_layout(console):
     """
-    Create the layout for the writer process
+    Creates the base layout for the writer process
     param console: Console - The Rich Console object to use for output
-    return: Layout - A Rich Layout object with header and footer sections
     """
-    layout = Layout()
-    layout.split_column(
-    Layout(name="header", size=3),
-    Layout(name="footer", size=3)
-    )
 
     header_text = "📝 FILE-BASED IPC WRITER STARTED 📝"
     color = "cyan"
     footer_text = "Writing to: shared_state.json | Press Ctrl+C to stop the writer process."
-    layout["header"].update(create_header(header_text, color))
-    layout["footer"].update(create_footer(footer_text))
-
-    return layout
+    console.print(create_header(header_text, color))
+    console.print(create_footer(footer_text))
 
 
-def update_writer_layout(layout, new_message):
+def update_writer_layout(console, new_message):
     """
     Update the writer's layout with a new message
-    param layout: Layout - The Rich Layout object to update
+    param console: Console - The Rich Console object to use for output
     param new_message: str - The new message to display in the header
-    return: layout - The updated Rich Layout object
     """
+    console.clear()
     header_text = "📝 Writer Updated State To: " + new_message
-    layout["header"].update(create_header(header_text, "yellow"))
-    return layout
+    color = "yellow"
+    console.print(create_header(header_text, color))
 
 
 def create_menu(console):
-    console.clear()
-    header = Text("🎮 BUDGET TRACKER - COMMAND CLIENT", style="bold cyan", justify="center")
-    footer_text = Text("Writing to: shared_state.json | Press Ctrl+C to stop the writer process.", style="dim cyan", justify="center")
-    console.print(Panel(header, border_style="cyan"))
-    console.print(Panel(footer_text, border_style="dim"))
     console.print()
-    
     console.print("[yellow]Available Commands:[/yellow]")
     console.print("  [green]1[/green] - Switch View")
     console.print("  [green]2[/green] - Update Content")
