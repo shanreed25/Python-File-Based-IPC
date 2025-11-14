@@ -2,6 +2,6 @@
   "current_view": "reader",
   "content": "Welcome to FILE-BASED IPC READER!",
   "data": {
-    "message": "Hello"
+    "message": "This data is added in real time"
   }
 }

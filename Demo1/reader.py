@@ -52,7 +52,7 @@ def main():
             if state:
                 display_state(state)
             
-            sleep(10)
+            sleep(5)
 
     except KeyboardInterrupt:
         console.print("[bold red]Reader stopped[/bold red]")

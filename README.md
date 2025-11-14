@@ -15,3 +15,5 @@
  
 - [File Based IPC Demo](./Demo/IPC_DEMO_README.md)
 - [More about IPC](./Notebooks/InterprocessCommunication.ipynb)
+
+**Note**: This demo repository is for educational purposes to understand IPC concepts. For production use, consider more robust IPC mechanisms like message queues, sockets, or dedicated IPC libraries.
