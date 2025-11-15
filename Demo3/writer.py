@@ -8,8 +8,8 @@ from pathlib import Path
 from rich.prompt import Prompt
 from rich.console import Console
 
-from ui.writer_layout import create_writer_layout, update_writer_layout, create_menu
-from Demo3.utils.account import new_account_prompt
+from ui.writer_layout import create_writer_layout, show_menu
+from utils.account import create_new_account
 
 console = Console()
 
@@ -25,33 +25,19 @@ def read_shared_state():
             return json.load(file)
     except FileNotFoundError:
         print("Shared state file not found.")
-    
 
-
-
-
-
-
-
-
-
-
-def add_account():
+def add_new_account():
    """
-    Prompt user for new account details and add to shared state
+    Adds a new account to the shared state
    """
-   new_account_details = new_account_prompt(console)
-
-# Load existing state
    state = read_shared_state()
+   new_account_details = create_new_account(console)
    state["accounts"].append(new_account_details)
 
    with open(SHARED_STATE_FILE, "w") as file:
         json.dump(state, file, indent=2)
 
-
-
-def show_choice(choice):
+def handle_menu__choice(choice):
     """
     Handle the user's menu choice
     param choice: str - The user's menu choice
@@ -67,7 +53,7 @@ def show_choice(choice):
     elif choice == "3":
         console.print("\n[yellow]View Accounts! 👋[/yellow]\n")
     elif choice == "4":
-        add_account()
+        add_new_account()
     elif choice == "5":
         console.print("\n[yellow]Showing Current State! 👋[/yellow]\n")
 
@@ -84,12 +70,9 @@ def main():
 
 
     while True:
-        create_menu(console)
-        choice = Prompt.ask(
-            "[green]Enter command[/green]",
-            choices=["0", "1", "2", "3", "4", "5"]
-        )
-        result = show_choice(choice)
+        
+        choice = show_menu(console)
+        result = handle_menu__choice(choice)
 
         if result == 0:
             break

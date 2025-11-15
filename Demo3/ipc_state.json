@@ -11,6 +11,16 @@
       "name": "Chase",
       "type": "Savings",
       "balance": 1000.0
+    },
+    {
+      "name": "Cash",
+      "type": "Cash",
+      "balance": 300.0
+    },
+    {
+      "name": "Drew Bank",
+      "type": "Savings",
+      "balance": 2000.0
     }
   ]
 }

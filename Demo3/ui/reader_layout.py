@@ -36,32 +36,23 @@ def create_reader_layout():
     return layout
 
 
-def create_reader_main_content(state):
+def update_reader_body(state, layout):
     """
-    Creates the reader body area
-    param content_text: str - The text to display in the main content area
-    return: Panel - A Rich Panel object containing the main content
+    Update the reader's body with new content and state
+    param state: dict - The current state dictionary
+    param layout: Layout - The Rich Layout object to update
+    return: layout - The updated Rich Layout object
     """
+
     current_view = state.get("current_view", "SUMMARY")
     accounts = state.get("accounts", [])
     content = account_table(accounts)
-    return Panel(
+    body = Panel(
         Align.center(content, vertical="middle"),
         title=current_view,
         border_style="green",
         box=box.ROUNDED
     )
-
-
-def update_reader_body(state, layout):
-    """
-    Update the reader's body with new content and state
-    param content_text: str - The text to display in the main content area
-    param layout: Layout - The Rich Layout object to update
-    return: layout - The updated Rich Layout object
-    """
-
-    body = create_reader_main_content(state)
     return layout["body"].update(body)
 
 

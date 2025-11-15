@@ -15,6 +15,11 @@ from ui.reader_layout import create_reader_layout, update_reader_body
 console = Console()
 SHARED_STATE_FILE = Path(__file__).parent / "ipc_state.json"
 
+
+
+#===================================================
+# Initialize
+#===================================================
 def initialize_state():
     """
     Initialize the state file with default values
@@ -29,6 +34,10 @@ def initialize_state():
         json.dump(initial_state, f)
     return initial_state
 
+
+#===================================================
+# Load State
+#===================================================
 def load_state():
     """
     Load current state from file if file does not exist, 
@@ -43,11 +52,14 @@ def load_state():
             return initialize_state()
     except:
         return initialize_state()
-            
+
+
 def main():
     """
-    Main loop to display and update reader layout
-    based on the shared state file
+    Main function to run the reader process
+    Creates layout using  create_reader_layout()
+    Periodically updates body using update_reader_body()
+    return: None
 
     """
     layout = create_reader_layout()

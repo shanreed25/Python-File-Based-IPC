@@ -1,5 +1,5 @@
 from ui.common_layouts import create_header, create_footer
-
+from rich.prompt import Prompt
 
 #=============================================
 # WRITER LAYOUT FUNCTIONS
@@ -16,7 +16,6 @@ def create_writer_layout(console):
     console.print(create_header(header_text, color))
     console.print(create_footer(footer_text))
 
-
 def update_writer_layout(console, new_message):
     """
     Update the writer's layout with a new message
@@ -28,8 +27,7 @@ def update_writer_layout(console, new_message):
     color = "yellow"
     console.print(create_header(header_text, color))
 
-
-def create_menu(console):
+def show_menu(console):
     console.print()
     console.print("[yellow]Available Commands:[/yellow]")
     console.print("  [green]1[/green] - Switch View")
@@ -39,15 +37,9 @@ def create_menu(console):
     console.print("  [green]5[/green] - Show Current State")
     console.print("  [green]0[/green] - Exit")
     console.print()
-
-
-# def new_account_prompt(console):
-#    """  
-#    Add a new account by prompting the user for details.
-#    param console: Console - The Rich Console object to use for input/output
-#    """
-#    console.print("\n[bold green]Add New Account[/bold green]")
+    choice = Prompt.ask(
+            "[green]Enter command[/green]",
+            choices=["0", "1", "2", "3", "4", "5"]
+        )
     
-#    account_name = console.input("Enter Account Name: ")
-#    account_type = console.input("Enter Account Type (e.g., Savings, Checking): ")
-#    initial_balance = console.input("Enter Initial Balance: ")
+    return choice

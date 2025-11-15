@@ -1,4 +1,4 @@
-def new_account_prompt(console):
+def create_new_account(console):
    """  
    Prompt user for new account details and return as a dictionary.
    param console: Console - The Rich Console object to use for input/output
