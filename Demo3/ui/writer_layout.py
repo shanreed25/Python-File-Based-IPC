@@ -4,7 +4,6 @@ from rich.table import Table
 from rich import box
 
 from ui.common_layouts import create_header, create_footer
-from utils.transaction import subtract_from_balance
 
 #=============================================
 # WRITER LAYOUT FUNCTIONS
@@ -51,15 +50,14 @@ def create_menu():
 
 def show_menu(console):
     menu = create_menu()
-
     console.print(menu)
+
     choice = Prompt.ask(
             "[green]Enter command[/green]",
             choices=["0", "1", "2", "3", "4", "5"]
         )
     
     return choice
-
 
 def get_new_account_details(console):
     """
@@ -90,8 +88,7 @@ def get_new_account_details(console):
     console.print(f"[bold green]Account '{account_name}' added successfully![/bold green]\n")
     return new_account_details
 
-
-def get_new_transaction_details(console, account_names, state):
+def get_new_transaction_details(account_names, console):
     """
     Prompt user for new transaction details and return as a dictionary.
     param console: Console - The Rich Console object to use for input/output
@@ -102,8 +99,6 @@ def get_new_transaction_details(console, account_names, state):
     account_name = Prompt.ask("Select Account", choices=account_names)
     amount = float(Prompt.ask("Enter Amount"))
     description = Prompt.ask("Enter Description")
-
-    subtract_from_balance(account_name, amount, state)
 
     transaction_details = {
         "account_name": account_name,

@@ -5,9 +5,7 @@ import json
 from pathlib import Path
 from time import sleep
 
-from rich.text import Text
 from rich.console import Console
-from rich.layout import Layout
 from rich.live import Live
 
 from ui.reader_layout import create_reader_layout, update_reader_body
@@ -69,7 +67,6 @@ def main():
                 state = load_state()
                 if state:
                     update_reader_body(state, layout)
-                
                 sleep(5)
 
     except KeyboardInterrupt:

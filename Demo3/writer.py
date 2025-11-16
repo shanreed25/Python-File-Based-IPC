@@ -8,8 +8,9 @@ from pathlib import Path
 from rich.prompt import Prompt
 from rich.console import Console
 
-from ui.writer_layout import create_writer_layout, show_menu, get_new_account_details, get_new_transaction_details
-from utils.account import get_accounts, get_account_names
+from ui.writer_layout import create_writer_layout, show_menu, get_new_account_details
+from utils.account import add_new_account
+from utils.transaction import add_new_transaction
 
 
 console = Console()
@@ -27,38 +28,11 @@ def read_shared_state():
     except FileNotFoundError:
         print("Shared state file not found.")
 
-def add_new_account():
-   """
-    Adds a new account to the shared state
-   """
-   state = read_shared_state()
-   new_account_details = get_new_account_details(console)
-   state["accounts"].append(new_account_details)
-
-   with open(SHARED_STATE_FILE, "w") as file:
-        json.dump(state, file, indent=2)
-
-def add_new_transaction():
+def write_shared_state(state):
     """
-    Add a transaction to an account in the shared state
+    Write the shared state to the JSON file.
+    param state: dict - The state dictionary to write
     """
-    state = read_shared_state()
-    accounts = get_accounts(state)
-    account_names = get_account_names(accounts)
-
-    transaction_details = get_new_transaction_details(console, account_names, state)
-    account_name = transaction_details['account_name']
-    amount = transaction_details['amount']
-    description = transaction_details['description']
-
-    for account in accounts:
-        if account['name'] == account_name:
-            account.setdefault('transactions', []).append({
-                "amount": amount,
-                "description": description
-            })
-            break
-
     with open(SHARED_STATE_FILE, "w") as file:
         json.dump(state, file, indent=2)
 
@@ -73,9 +47,17 @@ def handle_menu__choice(choice):
             console.print("\n[yellow]Exiting Command Client. Goodbye! 👋[/yellow]\n")
             return 0
         case "1":
-            add_new_account()
+            new_account = add_new_account(read_shared_state(), console)
+            if new_account:
+                write_shared_state(new_account)
+            else:
+                console.print("[red]Failed to add new account.[/red]")
         case "2":
-            add_new_transaction()
+            new_transaction = add_new_transaction(read_shared_state(), console)
+            if new_transaction:
+                write_shared_state(new_transaction)
+            else:
+                console.print("[red]Failed to add new transaction.[/red]")
         case "3":
             console.print("\n[yellow]Viewing Accounts! 👋[/yellow]\n")
         case "4":
