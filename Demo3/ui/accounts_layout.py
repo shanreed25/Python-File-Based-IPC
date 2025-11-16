@@ -24,25 +24,3 @@ def account_table(accounts):
                 f"${account.get('balance', 0):.2f}"
             )
     return table
-
-
-def transaction_table(transactions):
-    """
-    Create a Rich Table to display transaction information
-    param transactions: list - A list of transaction dictionaries
-    return: Table - A Rich Table object containing transaction information
-    """
-    if not transactions:
-        content = Text("No transactions available.", justify="center", style="white")
-        return content
-    else:
-        table = Table(title="Transactions", box=box.SIMPLE_HEAVY)
-        table.add_column("Amount", justify="right", style="green")
-        table.add_column("Description", style="yellow")
-
-        for transaction in transactions:
-            table.add_row(
-                f"${transaction.get('amount', 0):.2f}",
-                transaction.get("description", "No description")
-            )
-    return table

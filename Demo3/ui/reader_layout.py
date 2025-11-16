@@ -6,7 +6,8 @@ from rich import box
 from rich.columns import Columns
 
 from ui.common_layouts import create_header, create_footer
-from ui.accounts_layout import account_table, transaction_table
+from ui.accounts_layout import account_table
+from ui.transactions_layout import transaction_table
 #=============================================
 # READER LAYOUT FUNCTIONS
 #=============================================
@@ -51,7 +52,7 @@ def update_reader_body(state, layout):
 
     transactions = [trans for account in accounts for trans in account.get("transactions", [])]
     transactions_table = transaction_table(transactions)
-    tables_panel = Columns([all_accounts_table, transactions_table], expand=True)
+    tables_panel = Columns([all_accounts_table, transactions_table])
     body = Panel(
         Align.center(tables_panel, vertical="middle"),
         title=current_view,

@@ -1,6 +1,5 @@
 {
   "current_view": "SUMMARY",
-  "content": "Welcome To Your Budget Tracker!",
   "accounts": [
     {
       "name": "BOA",
@@ -8,31 +7,10 @@
       "balance": 2500.0,
       "transactions": [
         {
-          "amount": 200.0,
+          "amount": 500.0,
           "description": "Insurance"
         }
       ]
-    },
-    {
-      "name": "Chase",
-      "type": "Savings",
-      "balance": 1000.0
-    },
-    {
-      "name": "Cash",
-      "type": "Cash",
-      "balance": 300.0,
-      "transactions": [
-        {
-          "amount": 50.0,
-          "description": "Food"
-        }
-      ]
-    },
-    {
-      "name": "Drew Bank",
-      "type": "Savings",
-      "balance": 2000.0
     }
   ]
 }
