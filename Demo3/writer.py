@@ -10,7 +10,9 @@ from rich.console import Console
 
 from ui.writer_layout import create_writer_layout, show_menu
 from utils.account import create_new_account, get_accounts, get_account_names
-from utils.transaction import get_new_transaction_details
+from utils.transaction import create_new_transaction
+
+
 console = Console()
 
 SHARED_STATE_FILE = Path(__file__).parent / "ipc_state.json"
@@ -45,7 +47,7 @@ def add_new_transaction():
     accounts = get_accounts(state)
     account_names = get_account_names(accounts)
 
-    transaction_details = get_new_transaction_details(console, account_names)
+    transaction_details = create_new_transaction(console, account_names, state)
     account_name = transaction_details['account_name']
     amount = transaction_details['amount']
     description = transaction_details['description']
