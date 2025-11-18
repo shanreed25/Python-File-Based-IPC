@@ -61,7 +61,82 @@ def update_reader_body(state, layout):
     )
     return layout["body"].update(body)
 
+def switch_view_content(state, layout):
+    """
+    Update the reader's body based on the current view in state
+    param state: dict - The current state dictionary
+    param layout: Layout - The Rich Layout object to update
+    return: layout - The updated Rich Layout object
+    """
 
+    current_view = state.get("current_view", "SUMMARY")
+    if current_view == "SUMMARY":
+        return summary_view_content(state, layout)
+    elif current_view == "ACCOUNTS":
+        return account_view_content(state, layout)
+    else:
+        return layout
 
+def summary_view_content(state, layout):
+    """
+    Update the reader's body with summary view content based on the current state
+    param state: dict - The current state dictionary
+    param layout: Layout - The Rich Layout object to update
+    return: layout - The updated Rich Layout object
+    """
 
+    current_view = state.get("current_view", None)
+    accounts = state.get("accounts", [])
+    all_accounts_table = account_table(accounts)
+
+    transactions = [trans for account in accounts for trans in account.get("transactions", [])]
+    transactions_table = transaction_table(transactions)
+    tables_panel = Columns([all_accounts_table, transactions_table])
+    body = Panel(
+        Align.center(tables_panel, vertical="middle"),
+        title=current_view,
+        border_style="green",
+        box=box.ROUNDED
+    )
+    return layout["body"].update(body)
+
+def account_view_content(state, layout):
+    """
+    Update the reader's body with summary view content based on the current state
+    param state: dict - The current state dictionary
+    param layout: Layout - The Rich Layout object to update
+    return: layout - The updated Rich Layout object
+    """
+
+    current_view = state.get("current_view", None)
+    accounts = state.get("accounts", [])
+    all_accounts_table = account_table(accounts)
+    tables_panel = Columns([all_accounts_table])
+    body = Panel(
+        Align.center(tables_panel, vertical="middle"),
+        title=current_view,
+        border_style="green",
+        box=box.ROUNDED
+    )
+    return layout["body"].update(body)
     
+def transaction_view_content(state, layout):
+    """
+    Update the reader's body with summary view content based on the current state
+    param state: dict - The current state dictionary
+    param layout: Layout - The Rich Layout object to update
+    return: layout - The updated Rich Layout object
+    """
+
+    current_view = state.get("current_view", None)
+    accounts = state.get("accounts", [])
+    transactions = [trans for account in accounts for trans in account.get("transactions", [])]
+    transactions_table = transaction_table(transactions)
+    tables_panel = Columns([transactions_table])
+    body = Panel(
+        Align.center(tables_panel, vertical="middle"),
+        title=current_view,
+        border_style="green",
+        box=box.ROUNDED
+    )
+    return layout["body"].update(body)

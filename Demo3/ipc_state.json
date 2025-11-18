@@ -1,25 +1,10 @@
 {
-  "current_view": "SUMMARY",
-  "accounts": [
-    {
-      "name": "BOA",
-      "type": "Savings",
-      "balance": 1000000.0
-    },
-    {
-      "name": "Chase",
-      "type": "Checking",
-      "balance": 14750.0,
-      "transactions": [
+    "current_view": "SUMMARY",
+    "accounts": [
         {
-          "amount": 200.0,
-          "description": "Food"
-        },
-        {
-          "amount": 50.0,
-          "description": "Gas"
+            "name": "BOA",
+            "type": "Savings",
+            "balance": 10000.0
         }
-      ]
-    }
-  ]
+    ]
 }

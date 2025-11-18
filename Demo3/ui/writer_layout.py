@@ -1,3 +1,4 @@
+from ast import If
 from rich.prompt import Prompt
 from rich.text import Text
 from rich.table import Table
@@ -37,13 +38,13 @@ def create_menu():
 
     table.add_column("Command", style="green")
     table.add_column("Description")
-    table.add_row("1", "Add New Account")
-    table.add_row("2", "Add New Transaction")
-    table.add_row("3", "View Accounts")
-    table.add_row("4", "View Transactions")
-    table.add_row("5", "Switch View")
-    table.add_row("6", "Update Content")
-    table.add_row("7", "Show Current State")
+    table.add_row("1", "View Summary")
+    table.add_row("2", "Add New Account")
+    table.add_row("3", "Add New Transaction")
+    table.add_row("4", "View Accounts")
+    table.add_row("5", "View Transactions")
+    # table.add_row("6", "Update Content")
+    # table.add_row("7", "Show Current State")
     table.add_row("0", "Exit")
     
     return table
@@ -54,7 +55,7 @@ def show_menu(console):
 
     choice = Prompt.ask(
             "[green]Enter command[/green]",
-            choices=["0", "1", "2", "3", "4", "5"]
+            choices=["0", "1", "2", "3", "4"]
         )
     
     return choice
@@ -108,3 +109,47 @@ def get_new_transaction_details(account_names, console):
 
     console.print(f"[bold green]Transaction added to account '{account_name}' successfully![/bold green]\n")
     return transaction_details
+
+
+def choose_account(accounts, console):
+    """
+    Choose an account from a list of accounts
+    param account: dict - The account dictionary
+    param console: Console - The Rich Console object to use for output
+    """
+    account_names = [account['name'] for account in accounts]
+    account_name = Prompt.ask("Select Account", choices=account_names)
+
+    #=======================================================================================
+    # Generator Expression:
+        # Iterates through each account to find the matching account name
+        # filtered to only include accounts where the name key matches account_name
+        # Yields matching account dictionaries
+        # next(...) is a iterator function that retrieves the first item from the generator
+            # Stops immediately after finding the first match (efficient!)
+            # None - This is the default value:
+                # If no matching account is found, next() returns None instead of raising a StopIteration exception
+    #=======================================================================================
+    # Finds and returns the first account dictionary where account['name'] equals account_name. If no match is found, it returns None.
+    account = next((acc for acc in accounts if acc['name'] == account_name), None)
+
+
+    console.print(f"\n[bold blue]Selected Account: {account_name}[/bold blue]")
+    return account
+
+
+
+
+
+
+
+def choose_view(console):
+    """
+    Choose a view from available views
+    param console: Console - The Rich Console object to use for output
+    return: str - The selected view name
+    """
+    views = ["SUMMARY", "ACCOUNTS", "TRANSACTIONS"]
+    view = Prompt.ask("Select View", choices=views)
+    console.print(f"\n[bold blue]Selected View: {view}[/bold blue]")
+    return view

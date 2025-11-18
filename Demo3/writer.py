@@ -8,9 +8,9 @@ from pathlib import Path
 from rich.prompt import Prompt
 from rich.console import Console
 
-from ui.writer_layout import create_writer_layout, show_menu, get_new_account_details
+from ui.writer_layout import create_writer_layout, show_menu, choose_account
 from utils.account import add_new_account
-from utils.transaction import add_new_transaction
+from utils.transaction import add_new_transaction, get_transactions
 
 
 console = Console()
@@ -36,6 +36,18 @@ def write_shared_state(state):
     with open(SHARED_STATE_FILE, "w") as file:
         json.dump(state, file, indent=2)
 
+def change_current_view(new_view):
+    """
+    Change the current view in the shared state.
+    param state: dict - The current state dictionary
+    param new_view: str - The new view to set
+    return: dict - The updated state dictionary
+    """
+    state = read_shared_state()
+    state["current_view"] = new_view
+    write_shared_state(state)
+    return state
+
 def handle_menu__choice(choice):
     """
     Handle the user's menu choice
@@ -46,28 +58,37 @@ def handle_menu__choice(choice):
         case "0":
             console.print("\n[yellow]Exiting Command Client. Goodbye! 👋[/yellow]\n")
             return 0
-        case "1":
+        case "1":# View Summary
+            console.print("\n[yellow]Viewing Summary! 👋[/yellow]\n")
+            return change_current_view("SUMMARY")
+        case "2":# Add New Account
             new_account = add_new_account(read_shared_state(), console)
             if new_account:
                 write_shared_state(new_account)
             else:
                 console.print("[red]Failed to add new account.[/red]")
-        case "2":
+        case "3":# Add New Transaction
             new_transaction = add_new_transaction(read_shared_state(), console)
             if new_transaction:
                 write_shared_state(new_transaction)
             else:
                 console.print("[red]Failed to add new transaction.[/red]")
-        case "3":
+        case "4":# View Accounts
             console.print("\n[yellow]Viewing Accounts! 👋[/yellow]\n")
-        case "4":
+            return change_current_view("ACCOUNTS")
+            
+        case "5":# View Account Transactions
             console.print("\n[yellow]Viewing Transactions! 👋[/yellow]\n")
-        case "5":
-            console.print("\n[yellow]Switching View! 👋[/yellow]\n")
-        case "6":
-            console.print("\n[yellow]Updating Content! 👋[/yellow]\n")
-        case "7":
-            console.print("\n[yellow]Showing Current State! 👋[/yellow]\n")
+            state = read_shared_state()
+            accounts = state.get("accounts", [])
+            account = choose_account(accounts, console)
+            transactions = get_transactions(account)
+            console.print(f"\n[yellow]Transactions for account '{account['name']}':[/yellow]")
+            if transactions:
+                for idx, transaction in enumerate(transactions, start=1):
+                    console.print(f"{idx}. Amount: {transaction['amount']}, Description: {transaction['description']}")
+            else:
+                console.print("[red]No transactions available for this account.[/red]")
         case _:
             console.print("[red]❌Invalid choice. Please try again.[/red]")
 

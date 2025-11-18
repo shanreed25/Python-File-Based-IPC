@@ -9,8 +9,8 @@
 - **`reader_layout.py`** : layout for reader
 - **`writer_layout.py`** : layout for writer
 - **`common_layout.py`** : layout for header and footer for reader and writer
-- **`account_layout.py`** : layout for accounts table
-- **`transaction_layout.py`** : layout for transaction table
+- **`account_layout.py`** : layout for reader accounts table
+- **`transaction_layout.py`** : layout for reader transaction table
 
 
 ### Utils Folder

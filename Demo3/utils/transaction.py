@@ -57,6 +57,8 @@ def subtract_from_balance(account_name, amount, state):
        if account['name'] == account_name:
            account['balance'] -= amount
 
+
+# Get a list of transactions for a given account
 def get_transactions(account):
     """
     Get the list of transactions for a given account

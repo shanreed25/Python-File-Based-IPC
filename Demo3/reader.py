@@ -8,7 +8,7 @@ from time import sleep
 from rich.console import Console
 from rich.live import Live
 
-from ui.reader_layout import create_reader_layout, update_reader_body
+from ui.reader_layout import create_reader_layout, switch_view_content
 
 console = Console()
 SHARED_STATE_FILE = Path(__file__).parent / "ipc_state.json"
@@ -32,7 +32,6 @@ def initialize_state():
         json.dump(initial_state, f)
     return initial_state
 
-
 #===================================================
 # Load State
 #===================================================
@@ -45,12 +44,19 @@ def load_state():
     try:
         if SHARED_STATE_FILE.exists():
             with open(SHARED_STATE_FILE, 'r') as f:
-                return json.load(f)
+                current_data = json.load(f)
+                # get current view
+                current_view = current_data.get("current_view", "SUMMARY")
+                if current_view != "SUMMARY":
+                    current_data["current_view"] = "SUMMARY"
+                    # write back to file
+                    with open(SHARED_STATE_FILE, 'w') as fw:
+                        json.dump(current_data, fw)
+                return current_data
         else:
             return initialize_state()
     except:
         return initialize_state()
-
 
 def main():
     """
@@ -66,7 +72,7 @@ def main():
             while True:
                 state = load_state()
                 if state:
-                    update_reader_body(state, layout)
+                    switch_view_content(state, layout)
                 sleep(5)
 
     except KeyboardInterrupt:
