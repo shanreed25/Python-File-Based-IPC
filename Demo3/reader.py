@@ -45,14 +45,7 @@ def load_state():
         if SHARED_STATE_FILE.exists():
             with open(SHARED_STATE_FILE, 'r') as f:
                 current_data = json.load(f)
-                # get current view
-                current_view = current_data.get("current_view", "SUMMARY")
-                if current_view != "SUMMARY":
-                    current_data["current_view"] = "SUMMARY"
-                    # write back to file
-                    with open(SHARED_STATE_FILE, 'w') as fw:
-                        json.dump(current_data, fw)
-                return current_data
+            return current_data
         else:
             return initialize_state()
     except:

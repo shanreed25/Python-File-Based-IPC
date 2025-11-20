@@ -1,10 +1,21 @@
 {
-    "current_view": "SUMMARY",
-    "accounts": [
+  "current_view": "SUMMARY",
+  "accounts": [
+    {
+      "name": "BOA",
+      "type": "Savings",
+      "balance": 9000.0,
+      "transactions": [
         {
-            "name": "BOA",
-            "type": "Savings",
-            "balance": 10000.0
+          "amount": 1000.0,
+          "description": "Car Repair"
         }
-    ]
+      ]
+    },
+    {
+      "name": "Cash",
+      "type": "Cash",
+      "balance": 1500.0
+    }
+  ]
 }

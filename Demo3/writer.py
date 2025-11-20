@@ -39,14 +39,13 @@ def write_shared_state(state):
 def change_current_view(new_view):
     """
     Change the current view in the shared state.
-    param state: dict - The current state dictionary
     param new_view: str - The new view to set
-    return: dict - The updated state dictionary
     """
     state = read_shared_state()
-    state["current_view"] = new_view
-    write_shared_state(state)
-    return state
+    if state:
+        state["current_view"] = new_view
+        write_shared_state(state)
+    
 
 def handle_menu__choice(choice):
     """
@@ -60,7 +59,7 @@ def handle_menu__choice(choice):
             return 0
         case "1":# View Summary
             console.print("\n[yellow]Viewing Summary! 👋[/yellow]\n")
-            return change_current_view("SUMMARY")
+            change_current_view("SUMMARY")
         case "2":# Add New Account
             new_account = add_new_account(read_shared_state(), console)
             if new_account:
@@ -75,7 +74,7 @@ def handle_menu__choice(choice):
                 console.print("[red]Failed to add new transaction.[/red]")
         case "4":# View Accounts
             console.print("\n[yellow]Viewing Accounts! 👋[/yellow]\n")
-            return change_current_view("ACCOUNTS")
+            change_current_view("ACCOUNTS")
             
         case "5":# View Account Transactions
             console.print("\n[yellow]Viewing Transactions! 👋[/yellow]\n")
