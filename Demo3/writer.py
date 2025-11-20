@@ -55,6 +55,21 @@ def new_transaction(console):
     else:
         console.print("[red]Failed to add new transaction.[/red]")
 
+# Option 4: View Transactions for an Account
+def view_account_transactions(console):
+    state = read_shared_state()
+    accounts = state.get("accounts", [])
+    account = choose_account(accounts, console)
+    transactions = get_transactions(account)
+    console.print(f"\n[yellow]Transactions for account '{account['name']}':[/yellow]")
+    if transactions:
+        for idx, transaction in enumerate(transactions, start=1):
+            console.print(f"{idx}. Amount: {transaction['amount']}, Description: {transaction['description']}")
+    else:
+        console.print("[red]No transactions available for this account.[/red]")
+
+
+
 def change_current_view(new_view):
     """
     Change the current view in the shared state.
@@ -88,17 +103,7 @@ def handle_menu__choice(choice):
             change_current_view("ACCOUNTS")
             
         case "5":# View Account Transactions
-            console.print("\n[yellow]Viewing Transactions! 👋[/yellow]\n")
-            state = read_shared_state()
-            accounts = state.get("accounts", [])
-            account = choose_account(accounts, console)
-            transactions = get_transactions(account)
-            console.print(f"\n[yellow]Transactions for account '{account['name']}':[/yellow]")
-            if transactions:
-                for idx, transaction in enumerate(transactions, start=1):
-                    console.print(f"{idx}. Amount: {transaction['amount']}, Description: {transaction['description']}")
-            else:
-                console.print("[red]No transactions available for this account.[/red]")
+            view_account_transactions(console)
         case _:
             console.print("[red]❌Invalid choice. Please try again.[/red]")
 
