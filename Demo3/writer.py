@@ -10,7 +10,7 @@ from rich.console import Console
 
 from ui.writer_layout import create_writer_layout, show_menu, choose_account
 from utils.account import add_new_account
-from utils.transaction import add_new_transaction, get_transactions
+from utils.transaction import add_new_transaction
 
 
 console = Console()
@@ -64,7 +64,7 @@ def view_account_transactions(console):
     state = read_shared_state()
     accounts = state.get("accounts", [])
     account = choose_account(accounts, console)
-    transactions = get_transactions(account)
+    transactions = account.get("transactions", [])
     console.print(f"\n[yellow]Transactions for account '{account['name']}':[/yellow]")
     if transactions:
         for idx, transaction in enumerate(transactions, start=1):

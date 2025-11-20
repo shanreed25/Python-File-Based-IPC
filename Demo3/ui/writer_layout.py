@@ -108,7 +108,6 @@ def get_new_transaction_details(account_names, console):
     console.print(f"[bold green]Transaction added to account '{account_name}' successfully![/bold green]\n")
     return transaction_details
 
-
 def choose_account(accounts, console):
     """
     Choose an account from a list of accounts
@@ -134,11 +133,6 @@ def choose_account(accounts, console):
 
     console.print(f"\n[bold blue]Selected Account: {account_name}[/bold blue]")
     return account
-
-
-
-
-
 
 
 def choose_view(console):
