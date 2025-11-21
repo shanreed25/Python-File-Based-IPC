@@ -1,36 +1,15 @@
 {
-  "current_view": "TRANSACTIONS",
+  "current_view": "SUMMARY",
   "accounts": [
     {
       "name": "BOA",
       "type": "Savings",
-      "balance": 9000.0,
-      "transactions": [
-        {
-          "amount": 1000.0,
-          "description": "Car Repair"
-        }
-      ]
-    },
-    {
-      "name": "Cash",
-      "type": "Cash",
-      "balance": 1500.0
+      "balance": 10000.0
     },
     {
       "name": "Chase",
       "type": "Checking",
-      "balance": 2500.0,
-      "transactions": [
-        {
-          "amount": 200.0,
-          "description": "Food"
-        },
-        {
-          "amount": 300.0,
-          "description": "Insurance"
-        }
-      ]
+      "balance": 3000.0
     }
   ]
 }

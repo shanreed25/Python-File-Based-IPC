@@ -6,7 +6,7 @@ from pathlib import Path
 
 from rich.console import Console
 
-from ui.writer_layout import create_writer_layout, show_menu, choose_account, choose_view
+from ui.writer_layout import create_writer_layout, show_menu, choose_view
 from utils.account import add_new_account
 from utils.transaction import add_new_transaction
 
@@ -61,19 +61,6 @@ def new_transaction(console):
     else:
         console.print("[red]Failed to add new transaction.[/red]")
 
-# Option 5: View Transactions for an Account
-def view_account_transactions(console):
-    state = read_shared_state()
-    accounts = state.get("accounts", [])
-    account = choose_account(accounts, console)
-    transactions = account.get("transactions", [])
-    console.print(f"\n[yellow]Transactions for account '{account['name']}':[/yellow]")
-    if transactions:
-        for i, transaction in enumerate(transactions, start=1):
-            console.print(f"{i}. Amount: {transaction['amount']}, Description: {transaction['description']}")
-    else:
-        console.print("[red]No transactions available for this account.[/red]")
-
 # Option 3 and 4: View Summary/ View Accounts
 def change_current_view(new_view):
     """
@@ -103,14 +90,6 @@ def handle_menu__choice(choice):
         case "3": # Change View
             new_view = choose_view(console)
             change_current_view(new_view)
-        # case "3":# View Summary
-        #     console.print("\n[yellow]Viewing Summary! 👋[/yellow]\n")
-        #     change_current_view("SUMMARY")
-        # case "4":# View Accounts
-        #     console.print("\n[yellow]Viewing Accounts! 👋[/yellow]\n")
-        #     change_current_view("ACCOUNTS")
-        # case "5":# View Account Transactions
-        #     view_account_transactions(console)
         case _:
             console.print("[red]❌Invalid choice. Please try again.[/red]")
 #======================================================================
